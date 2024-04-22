@@ -74,18 +74,21 @@ int main()
         cin >> item >> quantity;
         for (int i = 0; i < quantity; i++)
         {
-            if (item == "Circle")
-            {
-                Factory *factory = new Factory();
-                Shape *circleFactory = factory->get(item);
-                circleFactory->produceShape();
-            }
-            else if (item == "Square")
-            {
-                Factory *factory = new Factory();
-                Shape *squareFactory = factory->get(item);
-                squareFactory->produceShape();
-            }
+            // if (item == "Circle")
+            // {
+            //     Factory *factory = new Factory();
+            //     Shape *circleFactory = factory->get(item);
+            //     circleFactory->produceShape();
+            // }
+            // else if (item == "Square")
+            // {
+            //     Factory *factory = new Factory();
+            //     Shape *squareFactory = factory->get(item);
+            //     squareFactory->produceShape();
+            // }
+            Factory *factory = new Factory();
+            Shape *shapeFactory = factory->get(item);
+            shapeFactory->produceShape();
         }
     }
 
