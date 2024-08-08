@@ -21,6 +21,18 @@ ShopCar shopcar(item, quantity);
 ShopCar *shopcar = new ShopCar(item, quantity);
 ```
 
+## 智能指针
+```
+// 返回指向CircleFactory对象的指针
+// Factory *pCircleFactory = new CircleFactory();
+
+// 返回指向Shape对象的指针
+// Shape *pCircle = pCircleFactory->factory();
+
+unique_ptr<Factory> pCircleFactory(new CircleFactory());
+unique_ptr<Shape> pCircle(pCircleFactory->factory());
+```
+
 ## 参考资料
 * [卡码网](https://kamacoder.com/designpattern.php)
 * [工厂设计模式](https://mp.weixin.qq.com/s/NDIFu6V76_cIo1kWvTM1YQ)
