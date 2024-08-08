@@ -25,11 +25,10 @@ ShopCar *shopcar = new ShopCar(item, quantity);
 ```
 // 返回指向CircleFactory对象的指针
 // Factory *pCircleFactory = new CircleFactory();
+unique_ptr<Factory> pCircleFactory(new CircleFactory());
 
 // 返回指向Shape对象的指针
 // Shape *pCircle = pCircleFactory->factory();
-
-unique_ptr<Factory> pCircleFactory(new CircleFactory());
 unique_ptr<Shape> pCircle(pCircleFactory->factory());
 ```
 
