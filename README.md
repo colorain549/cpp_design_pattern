@@ -27,7 +27,7 @@ ShopCar *shopcar = new ShopCar(item, quantity);
 
 ## 单例模式(懒汉模式)(小明的购物车)
 1. 构造函数私有化
-2. 提供接口(自定义)
+2. 提供接口(自定义)(🌟)
 ```
 static ShopCar *getInstance(){
     if(_pInstance==nullptr){
@@ -151,7 +151,7 @@ static ShopCar *getInstance(){
 }
 ```
 3. 声明用来保存实例私有静态变量
-4. 初始化用来保存实例私有静态变量
+4. 初始化用来保存实例私有静态变量(🌟)
 ```
 ShopCar *ShopCar::_pInstance = new ShopCar();
 ```
