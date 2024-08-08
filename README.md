@@ -11,7 +11,11 @@
 1. 🌟懒汉模式:第一次使用才创建(多线程可使用互斥锁)
 2. 🌟饿汉模式:实例在类加载时就被创建(多线程不影响)(提供接口时直接返回;定义时new一个对象;无需再destory)
 
-## 面向对象
+## 补充 参考资料
+* [卡码网](https://kamacoder.com/designpattern.php)
+* [工厂设计模式](https://mp.weixin.qq.com/s/NDIFu6V76_cIo1kWvTM1YQ)
+
+## 补充 面向对象
 1. 栈分配 自动管理内存 性能快(不涉及动态内存管理)
 ```
 ShopCar shopcar(item, quantity);
@@ -21,7 +25,7 @@ ShopCar shopcar(item, quantity);
 ShopCar *shopcar = new ShopCar(item, quantity);
 ```
 
-## 智能指针
+## 补充 智能指针
 ```
 // 返回指向CircleFactory对象的指针
 // Factory *pCircleFactory = new CircleFactory();
@@ -31,10 +35,6 @@ unique_ptr<Factory> pCircleFactory(new CircleFactory());
 // Shape *pCircle = pCircleFactory->factory();
 unique_ptr<Shape> pCircle(pCircleFactory->factory());
 ```
-
-## 参考资料
-* [卡码网](https://kamacoder.com/designpattern.php)
-* [工厂设计模式](https://mp.weixin.qq.com/s/NDIFu6V76_cIo1kWvTM1YQ)
 
 ## 单例模式(懒汉模式)(小明的购物车)
 1. 构造函数私有化
