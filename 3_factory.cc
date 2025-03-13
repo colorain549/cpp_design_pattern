@@ -1,3 +1,4 @@
+// 工厂方法
 // 输入
 // 3 Circle 1 Square 2 Circle 1
 // 输出

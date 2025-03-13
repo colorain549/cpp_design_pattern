@@ -1,3 +1,4 @@
+// 单例(饿汉式)
 // 输入
 // Apple 3 Banana 2 Orange 5
 // 输出

@@ -1,3 +1,4 @@
+// 抽象工厂
 // 输入
 // 3 modern classical modern
 // 输出
