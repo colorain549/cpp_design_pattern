@@ -10,6 +10,7 @@ class USB
 {
 public:
     virtual void chargeWithUSB() = 0;
+    virtual ~USB() {}
 };
 
 // 接口2
@@ -17,6 +18,7 @@ class TypeC
 {
 public:
     virtual void chargeWithTypeC() = 0;
+    virtual ~TypeC() {}
 };
 
 // 适配器(TypeC转USB)
@@ -77,9 +79,9 @@ int main()
         {
             // 电脑的TypeC接口
             TypeC *computer = new TypeCComputer();
-            // 电脑的TypeC接口与适配器(TypeC转USB)的TypeC口对接
+            // !!!选择适配器(TypeC转USB)的一端, 接到电脑上!!!
             USB *adapter = new TypeCToUSBAdapter(computer);
-            // 裸露的是适配器另一端的USB口
+            // !!!选择的是TypeC口(输出TypeC)
             adapter->chargeWithUSB();
         }
     }
