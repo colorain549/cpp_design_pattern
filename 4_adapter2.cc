@@ -1,3 +1,4 @@
+// 6 扩展坞
 // 增加对适配器的测试
 #include <iostream>
 

@@ -1,30 +1,45 @@
+// 咖啡馆(美式咖啡、拿铁咖啡)
+// A 研磨咖啡豆 Grinding coffee beans
+// B 冲泡咖啡 Brewing coffee
+// C 添加调料 Adding condiments
+// D 拿铁在添加调料时需要添加牛奶Adding milk
+// 1 抽象类(模板方法、抽象方法1、抽象方法2)
+// 2 具体类(抽象方法1、抽象方法2)
+// 3 实现抽象类的框架
+// 4 实现具体类的框架
+// 5 完善抽象类的框架
+// 6 完善具体类的框架
 #include <iostream>
-#include <string>
-#include <memory>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
 
-// 抽象类
+// 1 抽象类(模板方法、抽象方法1、抽象方法2)
+// 咖啡制作模板
+// 3 实现抽象类的框架
 class CoffeeMakerTemplate
 {
 public:
+    // 构造函数
     CoffeeMakerTemplate(const string &coffeeName) : _coffeeName(coffeeName) {}
 
-    // 模板方法定义咖啡制作方法
-    virtual void makeCoffee()
+    // 模板方法定义咖啡制作过程
+    virtual void coffeeMaker()
     {
         cout << "Making " << _coffeeName << ":" << endl;
         grindCoffeeBeans();
+        brewCoffee();
+        addCondiments();
+        cout << endl;
     }
 
-    // 具体步骤的具体实现由子类实现
+    // 具体的实现由子类提供
     virtual void grindCoffeeBeans() = 0;
     virtual void brewCoffee() = 0;
 
-    // 添加调料的具体实现
+    // 添加调料的默认实现
     virtual void addCondiments()
     {
         cout << "Adding condiments" << endl;
@@ -34,12 +49,16 @@ private:
     string _coffeeName;
 };
 
-// 具体的美式咖啡类
+// 2 具体类(抽象方法1、抽象方法2)
+// 美式咖啡制作
+// 4 实现具体类的框架
 class AmericanCoffeeMaker : public CoffeeMakerTemplate
 {
 public:
+    // !!!注意构造函数!!!
     AmericanCoffeeMaker() : CoffeeMakerTemplate("American Coffee") {}
 
+    // override
     void grindCoffeeBeans() override
     {
         cout << "Grinding coffee beans" << endl;
@@ -50,12 +69,16 @@ public:
     }
 };
 
-// 具体的拿铁咖啡类
+// 2 具体类(抽象方法1、抽象方法2)
+// 拿铁咖啡制作
+// 4 实现具体类的框架
 class LatteCoffeeMaker : public CoffeeMakerTemplate
 {
 public:
+    // !!!注意构造函数!!!
     LatteCoffeeMaker() : CoffeeMakerTemplate("Latte") {}
 
+    // override
     void grindCoffeeBeans() override
     {
         cout << "Grinding coffee beans" << endl;
@@ -65,7 +88,7 @@ public:
         cout << "Brewing coffee" << endl;
     }
 
-    // 添加调料的特定实现
+    // 添加调料的特定实现override
     void addCondiments() override
     {
         cout << "Adding milk" << endl;
@@ -75,26 +98,5 @@ public:
 
 int main()
 {
-    CoffeeMakerTemplate *coffeeMaker;
-
-    int coffeeType;
-    while (cin >> coffeeType)
-    {
-        if (coffeeType == 1)
-        {
-            coffeeMaker = new AmericanCoffeeMaker();
-        }
-        else if (coffeeType == 2)
-        {
-            coffeeMaker = new LatteCoffeeMaker();
-        }
-        else
-        {
-            cout << "Invalid coffee type" << endl;
-            continue;
-        }
-        coffeeMaker->makeCoffee();
-    }
-
     return 0;
 }
