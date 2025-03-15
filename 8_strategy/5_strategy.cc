@@ -40,7 +40,7 @@ public:
 class DiscountContext
 {
 public:
-    void setDiscountStratagy(DiscountStrategy *discountStrategy) {}
+    void setDiscountStrategy(DiscountStrategy *discountStrategy) {}
     int applyDiscount(int originalPrice) {}
 };
 
