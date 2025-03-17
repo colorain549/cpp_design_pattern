@@ -1,28 +1,21 @@
-// 适配器
-// A. TypeC的电脑
-// B. USB的充电器
-// C. 适配器(TypeC到USB)
-// 1. TypeC和USB的抽象接口chargeWithUSB和charge
-// 2. TypeC的电脑TypeC口
-// 3. USB的充电器USB口
-// 4. 适配器(TypeC到USB)
-// 5. 测试(电脑和充电器)
-// 6. 测试(适配器)
+// 6拓展坞
+// A Target(目标接口, USB)
+// B Adaptee(被适配者, TypeC, TypeCComputer)
+// C Adapter(适配器, TypeCToUSBAdapter)
+// 1 Target(目标接口, USB)
+// 2 Adaptee(被适配者, TypeC, TypeCComputer)
+// 3 Adapter(适配器, TypeCToUSBAdapter)
+// 4 其他(使用USB充电器和数据线直接供电, USB Adapter)
+// 5 测试(1直接使用TypeC充电, 2直接使用USB充电器和数据线充电)
+// 6 测试(3使用适配器充电, 通过USB调用接口使用TypeC接口的功能)
+// 7 改进(使用智能指针)
 #include <iostream>
 
 using std::cin;
 using std::cout;
 using std::endl;
 
-// 1. TypeC和USB的抽象接口chargeWithUSB和charge
-class TypeC
-{
-public:
-    virtual void chargeWithTypeC() = 0;
-    virtual ~TypeC() {}
-};
-
-// 1. TypeC和USB的抽象接口chargeWithUSB和charge
+// 1 Target(目标接口, USB)
 class USB
 {
 public:
@@ -30,8 +23,15 @@ public:
     virtual ~USB() {}
 };
 
-// 2. TypeC的电脑TypeC口
-class Computer : public TypeC
+// 2 Adaptee(被适配者, TypeC, TypeCComputer)
+class TypeC
+{
+public:
+    virtual void chargeWithTypeC() = 0;
+    virtual ~TypeC() {}
+};
+
+class TypeCComputer : public TypeC
 {
 public:
     void chargeWithTypeC() override
@@ -40,17 +40,7 @@ public:
     }
 };
 
-// 3. USB的充电器USB口
-class USBCharge : public USB
-{
-public:
-    void chargeWithUSB() override
-    {
-        cout << "USB Adapter" << endl;
-    }
-};
-
-// 4. 适配器(TypeC到USB)
+// 3 Adapter(适配器, TypeCToUSBAdapter)
 class TypeCToUSBAdapter : public USB
 {
 private:
@@ -65,8 +55,19 @@ public:
     }
 };
 
+// 4 其他(使用USB充电器和数据线直接供电, USB Adapter)
+class USBAdapter : public USB
+{
+public:
+    void chargeWithUSB() override
+    {
+        cout << "USB Adapter" << endl;
+    }
+};
+
 int main()
 {
+    // 5 测试(1直接使用TypeC充电, 2直接使用USB充电器和数据线充电)
     int n;
     int operation;
     cin >> n;
@@ -75,26 +76,23 @@ int main()
         cin >> operation;
         if (operation == 1)
         {
-            TypeC *computer = new Computer();
+            TypeC *computer = new TypeCComputer();
             computer->chargeWithTypeC();
             delete computer;
         }
         else if (operation == 2)
         {
-            // USB的充电器USB口
-            USB *usbCharge = new USBCharge();
-            usbCharge->chargeWithUSB();
-            delete usbCharge;
+            // 使用USB充电器和数据线直接供电
+            USB *usbAdapter = new USBAdapter();
+            usbAdapter->chargeWithUSB();
+            delete usbAdapter;
         }
         else if (operation == 3)
         {
-            // 电脑TypeC接口
-            TypeC *computer = new Computer();
-            // 选择适配器的一端, 接入电脑
-            USB *typeCToUSBAdapter = new TypeCToUSBAdapter(computer);
-            // 选择的是TypeC一端(输出TypeC)
+            TypeC *typeCComputer = new TypeCComputer();
+            USB *typeCToUSBAdapter = new TypeCToUSBAdapter(typeCComputer); 
             typeCToUSBAdapter->chargeWithUSB();
-            delete computer;
+            delete typeCComputer;
             delete typeCToUSBAdapter;
         }
     }

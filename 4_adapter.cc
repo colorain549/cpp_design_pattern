@@ -1,39 +1,35 @@
-// 6 扩展坞
+// 6拓展坞
+// A Target(目标接口, USB)
+// B Adaptee(被适配者, TypeC, TypeCComputer)
+// C Adapter(适配器, TypeCToUSBAdapter)
+// 1 Target(目标接口, USB)
+// 2 Adaptee(被适配者, TypeC, TypeCComputer)
+// 3 Adapter(适配器, TypeCToUSBAdapter)
+// 4 其他(直接使用USB充电器和数据线供电, USB Adapter)
+// 5 测试(1直接使用TypeC充电, 2直接使用USB充电器和数据线充电)
 #include <iostream>
 
 using std::cin;
 using std::cout;
 using std::endl;
 
-// 接口1
+// 1 Target(目标接口, USB)
 class USB
 {
 public:
     virtual void chargeWithUSB() = 0;
+    virtual ~USB() {}
 };
 
-// 接口2
+// 2 Adaptee(被适配者, TypeC, TypeCComputer)
 class TypeC
 {
 public:
     virtual void chargeWithTypeC() = 0;
+    virtual ~TypeC() {}
 };
 
-// 适配器(TypeC转USB)
-class TypeCToUSBAdapter : public USB
-{
-private:
-    TypeC *_typeC;
-
-public:
-    TypeCToUSBAdapter(TypeC *typeC) : _typeC(typeC) {}
-    void chargeWithUSB() override
-    {
-        _typeC->chargeWithTypeC();
-    }
-};
-
-// TypeC电脑
+// 2 Adaptee(被适配者, TypeC, TypeCComputer)
 class TypeCComputer : public TypeC
 {
 public:
@@ -43,7 +39,22 @@ public:
     }
 };
 
-// USB充电头
+// 3 Adapter(适配器, TypeCToUSBAdapter)
+class TypeCToUSBAdapter : public USB
+{
+private:
+    TypeC *_typeC;
+
+public:
+    TypeCToUSBAdapter(TypeC *typeC) : _typeC(typeC) {}
+
+    void chargeWithUSB() override
+    {
+        _typeC->chargeWithTypeC();
+    }
+};
+
+// 4 其他(USB Adapter)
 class USBAdapter : public USB
 {
 public:
@@ -55,25 +66,25 @@ public:
 
 int main()
 {
-    int N;
-    int choice;
-    cin >> N;
-    for (int i = 0; i < N; i++)
+    int n;
+    int operation;
+    cin >> n;
+    for (int i = 0; i < n; i++)
     {
-        cin >> choice;
-        if (choice == 1)
+        cin >> operation;
+        if (operation == 1)
         {
             TypeC *computer = new TypeCComputer();
             computer->chargeWithTypeC();
             delete computer;
         }
-        else if (choice == 2)
+        else if (operation == 2)
         {
-            USB *adapter = new USBAdapter();
-            adapter->chargeWithUSB();
-            delete adapter;
+            // 使用USB充电器和数据线直接供电
+            USB *usbAdapter = new USBAdapter();
+            usbAdapter->chargeWithUSB();
+            delete usbAdapter;
         }
     }
-
     return 0;
 }

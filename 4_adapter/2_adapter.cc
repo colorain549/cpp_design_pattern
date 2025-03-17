@@ -1,33 +1,37 @@
-// 适配器
-// A. TypeC的电脑
-// B. USB的充电器
-// C. 适配器(TypeC到USB)
-// 1. TypeC和USB的抽象接口chargeWithUSB和charge
-// 2. TypeC的电脑TypeC口
-// 3. USB的充电器USB口
-// 4. 适配器(TypeC到USB)
+// 6拓展坞
+// A Target(目标接口, USB)
+// B Adaptee(被适配者, TypeC, TypeCComputer)
+// C Adapter(适配器, TypeCToUSBAdapter)
+// 1 Target(目标接口, USB)
+// 2 Adaptee(被适配者, TypeC, TypeCComputer)
+// 3 Adapter(适配器, TypeCToUSBAdapter)
+// 4 其他(使用USB充电器和数据线直接供电, USB Adapter)
+// 5 测试(1直接使用TypeC充电, 2直接使用USB充电器和数据线充电)
+// 6 测试(3使用适配器充电, 通过USB调用接口使用TypeC接口的功能)
+// 7 改进(使用智能指针)
 #include <iostream>
 
 using std::cin;
 using std::cout;
 using std::endl;
 
-// 1. TypeC和USB的抽象接口chargeWithUSB和charge
-class TypeC
-{
-public:
-    virtual void chargeWithTypeC() = 0;
-};
-
-// 1. TypeC和USB的抽象接口chargeWithUSB和charge
+// 1 Target(目标接口, USB)
 class USB
 {
 public:
     virtual void chargeWithUSB() = 0;
+    virtual ~USB() {}
 };
 
-// 2. TypeC的电脑TypeC口
-class Computer : public TypeC
+// 2 Adaptee(被适配者, TypeC, TypeCComputer)
+class TypeC
+{
+public:
+    virtual void chargeWithTypeC() = 0;
+    virtual ~TypeC() {}
+};
+
+class TypeCComputer : public TypeC
 {
 public:
     void chargeWithTypeC() override
