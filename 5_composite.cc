@@ -13,12 +13,14 @@ using std::string;
 using std::vector;
 using std::ws;
 
+// 组件
 class Component
 {
 public:
     virtual void display(int depth) = 0;
 };
 
+// 组合
 class Department : public Component
 {
 private:
@@ -44,6 +46,7 @@ public:
     }
 };
 
+// 叶子
 class Employee : public Component
 {
 private:
@@ -59,6 +62,7 @@ public:
     }
 };
 
+// 客户端
 class Company
 {
 private:
