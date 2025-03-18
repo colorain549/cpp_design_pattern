@@ -9,7 +9,7 @@ using std::endl;
 using std::string;
 using std::vector;
 
-// 观察者接口
+// 观察者接口(观察者)
 class Observer
 {
 public:
@@ -17,7 +17,7 @@ public:
     virtual ~Observer() {}
 };
 
-// 主题接口
+// 主题接口(目标)
 class Subject
 {
 public:
@@ -27,7 +27,7 @@ public:
     virtual ~Subject() {}
 };
 
-// 具体主题实现
+// 具体主题实现(具体目标)
 class Clock : public Subject
 {
 private:
@@ -72,7 +72,7 @@ public:
     }
 };
 
-// 具体观察者实现
+// 具体观察者实现(具体观察者)
 class Student : public Observer
 {
 private:
