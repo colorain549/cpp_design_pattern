@@ -110,7 +110,7 @@ int main()
         if (type == "D")
         {
             Department *department = new Department(name);
-            department->add(department);
+            company->add(department);
         }
         else if (type == "E")
         {
